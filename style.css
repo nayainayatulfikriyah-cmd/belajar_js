@@ -1,0 +1,471 @@
+/* ============================================================
+   Mengenal Hewan — tema pink
+   Gaya: kartu "stiker" dengan garis tebal dan bayangan pink solid
+   ============================================================ */
+ 
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap");
+ 
+/* ---------- Warna & variabel ---------- */
+:root {
+  --latar: #fff3f8; /* blush */
+  --kartu: #ffffff;
+  --pink: #f472b6; /* pink utama */
+  --pink-tua: #db2777; /* untuk tombol & link */
+  --pink-muda: #ffd9ea; /* petal */
+  --pink-lembut: #ffe8f2;
+  --berry: #6b1e47; /* teks utama */
+  --berry-lembut: #93597a; /* teks sekunder */
+  --garis: #6b1e47;
+ 
+  --font-judul: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+  --font-isi: "Nunito", "Segoe UI", system-ui, sans-serif;
+ 
+  --radius: 22px;
+  --bayangan: 6px 6px 0 var(--pink);
+}
+ 
+/* ---------- Mode gelap (mendukung beberapa nama class) ---------- */
+body.gelap,
+body.mode-gelap,
+body.dark,
+body.dark-mode,
+[data-theme="dark"] body {
+  --latar: #2a1020;
+  --kartu: #3a1830;
+  --pink: #f472b6;
+  --pink-tua: #f9a8d4;
+  --pink-muda: #5a2545;
+  --pink-lembut: #4a1d3a;
+  --berry: #ffe4f1;
+  --berry-lembut: #e9b3d0;
+  --garis: #f9a8d4;
+  --bayangan: 6px 6px 0 #a3336f;
+}
+ 
+/* ---------- Dasar ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+ 
+html {
+  scroll-behavior: smooth;
+}
+ 
+body {
+  margin: 0;
+  font-family: var(--font-isi);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--berry);
+  background-color: var(--latar);
+  /* pola titik-titik halus */
+  background-image: radial-gradient(var(--pink-muda) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+  transition: background-color 0.3s, color 0.3s;
+}
+ 
+h1,
+h2,
+h3 {
+  font-family: var(--font-judul);
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+}
+ 
+p {
+  margin: 0 0 1em;
+  max-width: 68ch;
+}
+ 
+a {
+  color: var(--pink-tua);
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+ 
+a:hover {
+  color: var(--berry);
+}
+ 
+:focus-visible {
+  outline: 3px solid var(--pink-tua);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+ 
+/* ---------- Header ---------- */
+header#judul {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 14px clamp(16px, 5vw, 48px);
+  background: var(--pink);
+  border-bottom: 4px solid var(--garis);
+}
+ 
+/* selector lebih spesifik supaya menimpa <style> h1 di dalam HTML */
+header#judul h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: #fff;
+  background: none;
+  letter-spacing: 0.5px;
+  text-shadow: 3px 3px 0 var(--garis);
+}
+ 
+/* ---------- Navigasi ---------- */
+#navigasi {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+ 
+#navigasi a {
+  padding: 6px 16px;
+  color: var(--berry);
+  background: #fff;
+  border: 2px solid var(--garis);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.15s, background 0.15s;
+}
+ 
+#navigasi a:hover {
+  background: var(--pink-muda);
+  transform: translateY(-2px);
+}
+ 
+#tombol-gelap {
+  font: inherit;
+  font-weight: 700;
+  padding: 6px 16px;
+  color: #fff;
+  background: var(--berry);
+  border: 2px solid var(--garis);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+ 
+#tombol-gelap:hover {
+  transform: translateY(-2px) rotate(-2deg);
+}
+ 
+/* ---------- Layout utama ---------- */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 36px clamp(16px, 4vw, 32px) 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 32px;
+  align-items: start;
+}
+ 
+#jenis {
+  grid-column: 1;
+}
+ 
+aside {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 100px;
+}
+ 
+#Tentang {
+  grid-column: 1 / -1;
+}
+ 
+/* ---------- Judul section ---------- */
+main h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  display: inline-block;
+  padding: 4px 18px;
+  background: var(--pink-muda);
+  border: 3px solid var(--garis);
+  border-radius: 14px;
+  transform: rotate(-1.5deg);
+}
+ 
+/* ---------- Kotak cari ---------- */
+#cari {
+  display: block;
+  width: 100%;
+  margin: 8px 0 28px;
+  padding: 12px 20px;
+  font: inherit;
+  color: var(--berry);
+  background: var(--kartu);
+  border: 3px solid var(--garis);
+  border-radius: 999px;
+  box-shadow: 4px 4px 0 var(--pink);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+ 
+#cari::placeholder {
+  color: var(--berry-lembut);
+}
+ 
+#cari:focus {
+  outline: none;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--pink-tua);
+}
+ 
+/* ---------- Kartu artikel ---------- */
+article {
+  margin-bottom: 32px;
+  padding: 24px;
+  background: var(--kartu);
+  border: 3px solid var(--garis);
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+}
+ 
+article h3 {
+  font-size: 1.5rem;
+  color: var(--pink-tua);
+}
+ 
+figure {
+  margin: 0 0 20px;
+}
+ 
+figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: cover;
+  border: 3px solid var(--garis);
+  border-radius: 16px;
+  background: var(--pink-lembut);
+}
+ 
+figcaption {
+  margin-top: 10px;
+  padding: 8px 14px;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--berry-lembut);
+  background: var(--pink-lembut);
+  border-left: 5px solid var(--pink);
+  border-radius: 0 12px 12px 0;
+}
+ 
+/* ---------- Teks "baca selengkapnya" ---------- */
+.selengkapnya {
+  padding: 14px 18px;
+  background: var(--pink-lembut);
+  border: 2px dashed var(--pink);
+  border-radius: 14px;
+}
+ 
+.sembunyi {
+  display: none;
+}
+ 
+/* ---------- Tombol suka & baca ---------- */
+.aksi {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 2px dotted var(--pink);
+}
+ 
+.aksi button {
+  font: inherit;
+  font-weight: 700;
+  padding: 8px 18px;
+  border: 2px solid var(--garis);
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--garis);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+ 
+.aksi button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--garis);
+}
+ 
+.aksi button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--garis);
+}
+ 
+.btn-suka {
+  color: #fff;
+  background: var(--pink-tua);
+}
+ 
+.btn-baca {
+  color: var(--berry);
+  background: var(--pink-muda);
+  margin-left: auto;
+}
+ 
+.jumlah-suka {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 8px;
+  text-align: center;
+  color: #fff;
+  background: var(--pink-tua);
+  border-radius: 999px;
+}
+ 
+/* ---------- Sidebar ---------- */
+aside {
+  padding: 22px;
+  background: var(--pink-muda);
+  border: 3px solid var(--garis);
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+}
+ 
+aside h2 {
+  font-size: 1.3rem;
+  background: var(--kartu);
+}
+ 
+aside ul {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+ 
+aside li + li {
+  margin-top: 10px;
+}
+ 
+aside li a {
+  display: block;
+  padding: 8px 14px;
+  color: var(--berry);
+  background: var(--kartu);
+  border: 2px solid var(--garis);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.15s, background 0.15s;
+}
+ 
+aside li a:hover {
+  background: var(--pink);
+  color: #fff;
+  transform: translateX(6px);
+}
+ 
+/* ---------- Tentang ---------- */
+#Tentang {
+  padding: 28px;
+  background: var(--kartu);
+  border: 3px solid var(--garis);
+  border-radius: var(--radius);
+  box-shadow: var(--bayangan);
+}
+ 
+.wrapper {
+  margin-bottom: 1em;
+  padding: 16px 20px;
+  background: var(--pink-lembut);
+  border-left: 6px solid var(--pink-tua);
+  border-radius: 0 16px 16px 0;
+}
+ 
+.wrapper p {
+  margin: 0;
+  font-weight: 600;
+}
+ 
+/* ---------- Footer ---------- */
+footer#kontak {
+  padding: 32px clamp(16px, 5vw, 48px) 24px;
+  color: #fff;
+  background: var(--berry);
+  border-top: 6px solid var(--pink);
+  text-align: center;
+}
+ 
+footer#kontak h2 {
+  color: var(--pink-muda);
+  font-size: 1.6rem;
+}
+ 
+.alamat {
+  font-style: normal;
+  line-height: 1.9;
+}
+ 
+footer#kontak a {
+  color: var(--pink-muda);
+}
+ 
+footer#kontak a:hover {
+  color: #fff;
+}
+ 
+footer#kontak p {
+  margin: 20px auto 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+ 
+/* ---------- Responsif ---------- */
+@media (max-width: 800px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+ 
+  #jenis,
+  aside,
+  #Tentang {
+    grid-column: 1;
+  }
+ 
+  aside {
+    grid-row: auto;
+    position: static;
+    order: 2;
+  }
+ 
+  #Tentang {
+    order: 3;
+  }
+ 
+  header#judul {
+    position: static;
+    justify-content: center;
+    text-align: center;
+  }
+ 
+  #navigasi {
+    justify-content: center;
+  }
+ 
+  .btn-baca {
+    margin-left: 0;
+  }
+}
+ 
+/* ---------- Hormati preferensi kurangi gerakan ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+ 
